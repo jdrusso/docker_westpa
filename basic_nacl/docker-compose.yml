@@ -20,5 +20,14 @@ services:
       - "1337:8888"
     volumes:
       - nacl_data:/nacl
+  jupyter_run:
+    build: 
+      context: .
+      dockerfile: ./docker/jupyter_run/Dockerfile
+    ports:
+      - "1336:8888"
+    volumes:
+      - jupyter_nacl_data:/nacl
 volumes:
   nacl_data:
+  jupyter_nacl_data:
