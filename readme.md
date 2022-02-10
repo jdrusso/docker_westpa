@@ -32,6 +32,7 @@ Run the simulations:
 
 
 (NB: Something is not quite right about enforcing the order of w_init first, and then w_run, if you try to combine these two. 
+This will look like w_run throwing a `Resource temporarily unavailable` error, as `w_init` hasn't finished preparing the sim yet.
 I could fold them into one container, but I liked having w_run as its own thing you can easily re-run if it chokes and crashes.
 You could of course just manually issue `w_run` to the container, but it seemed more elegant to just be able to rerun the container.)
 
@@ -51,6 +52,16 @@ A volume provides a persistent store of data that can be mounted in the containe
 
 Between calls to `docker-compose up`, though, the volume will be reused. 
 To wipe out the old volume and use a new one, do `docker-compose down -v`.
+
+
+# Basic Na/Cl association
+
+As before, start with 
+
+    cd basic_nacl
+    docker-compose build
+
+
 
 # TODO
 

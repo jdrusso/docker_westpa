@@ -1,0 +1,11 @@
+name: docker_westpa_nacl
+channels:
+  - conda-forge
+  - conda-forge/label/westpa_dev
+dependencies:
+  - numpy
+  - matplotlib
+  - rich
+  - tqdm
+  - openmm
+  - westpa=2.0dev1
