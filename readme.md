@@ -54,9 +54,14 @@ Between calls to `docker-compose up`, though, the volume will be reused.
 To wipe out the old volume and use a new one, do `docker-compose down -v`.
 
 
-# Basic Na/Cl association 
+# Basic Na/Cl association (OpenMM)
 
-## Normal command-line operation
+The ODLD demo uses a custom propagator, which means it doesn't have to interface with a dynamics engine.
+A good amount of complexity in setting up and running WESTPA comes from interfacing with the dynamics, so I want a proof-of-concept for that too.
+
+Having a proof-of-concept for non-Python MD engines like Amber/Gromacs would be the next priority.
+
+## Running a WESTPA simulation from the command-line
 
 As before, start with 
 
@@ -75,7 +80,7 @@ and launch the simulation with
 
     docker-compose up w_run
 
-## Running in Jupyter
+## Running a WESTPA simulation from within Jupyter
 
 As a simple demonstration, it's also possible to initialize and run the simulation from within a Jupyter notebook.
 
