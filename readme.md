@@ -51,6 +51,14 @@ A good amount of complexity in setting up and running WESTPA comes from interfac
 
 Having a proof-of-concept for non-Python MD engines like Amber/Gromacs would be the next priority.
 
+## Using prebuilt images from Dockerhub
+
+You should be able to pull and run this image without doing anything locally, as the true test of this. To do that, run
+
+    docker run -p 8888:8888 jdrusso/westpa:westpa_nacl_jupyter
+
+and click on one of the links in the output.
+
 ## Running a WESTPA simulation from the command-line
 
 As before, start with 
