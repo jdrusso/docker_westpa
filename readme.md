@@ -43,16 +43,6 @@ Start the analysis notebook
 This will launch a Jupyter notebook in the container. Pay attention to the output -- you can copy the URL it spits out, and replace port 8888 with 1337
 to connect to it from a browser on your computer.
 
-### Data persistence
-
-When running this, a directory `/odld` is created within the Docker container, and simulations are run within that.
-
-To enable analysis after the run, a Docker volume is created and mounted at `/odld` when launched. 
-A volume provides a persistent store of data that can be mounted in the container, or additionally, mounted on your local filesystem for further analysis.
-
-Between calls to `docker-compose up`, though, the volume will be reused. 
-To wipe out the old volume and use a new one, do `docker-compose down -v`.
-
 
 # Basic Na/Cl association (OpenMM)
 
@@ -96,6 +86,19 @@ and then launch the container with
 As before, look at the output to get the token for the notebook. Navigate to localhost:1336 and enter that token to open the notebook.
 
 From inside the notebook, you should be able to run the first few cells to initialize and run the simulation.
+
+
+# IMPORTANT: Data persistence
+
+When running this, a directory `/odld` is created within the Docker container, and simulations are run within that.
+
+To enable analysis after the run, a Docker volume is created and mounted at `/odld` when launched. 
+A volume provides a persistent store of data that can be mounted in the container, or additionally, mounted on your local filesystem for further analysis.
+
+Between calls to `docker-compose up`, though, the volume will be reused. 
+This can cause some unexpected behavior if you're expecting a fresh simulation directory every time.
+To wipe out the old volume and use a new one, do `docker-compose down -v`.
+I'm still understanding best practices for interacting with volumes, but this does the trick for now.
 
 # TODO
 
