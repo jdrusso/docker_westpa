@@ -4,18 +4,44 @@ I'm interested in whether I can store an entire simulation as a Docker image, to
 
 As a very first proof of concept, I want to package just a simple overdamped Langevin dynamics propagator I wrote.
 
+# Manually with Docker
 ## Building the image
 
 ```
 cd docker_westpa
-docker build . -t westpa_odld
+docker build -f Dockerfile.init     . -t westpa_odld_init
+docker build -f Dockerfile.run      . -t westpa_odld_run
+docker build -f Dockerfile.analysis . -t westpa_odld_analysis
 ```
 
 ## Running the simulation 
 
+First, create a volume to store persistent data with
 ```
-docker run -t westpa_odld 
+docker volume create data
 ```
+
+Then run the simulation attached to the volume with
+```
+docker run -v data:/odld westpa_odld 
+```
+
+(Can you run multiple replicates by running the container on a few different volumes?)
+
+At this point, you can do
+```
+docker run -v data:/odld westpa_odld ls
+```
+and see the `west.h5` generated.
+
+## TODO
+
+What's the appropriate set of containers to run a simulation? Is it a single one? 
+
+Or one for w_init, one for w_run, and one for some analysis stuff? 
+
+Or maybe a container for w_init/w_run, but you connect it to a volume containing the prepared simulation?
+- I think this could be a container I import, but I need to prepare the simulation in a container.
 
 ## Notes
 
