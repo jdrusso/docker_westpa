@@ -7,6 +7,11 @@ I'm interested in whether I can store an entire simulation as a Docker image, to
 As a very first proof of concept, I want to package just a simple overdamped Langevin dynamics propagator I wrote.
 The potential is just a simple 1D double-well.
 
+First, 
+```
+cd odld_doublewell
+```
+
 ## With `docker-compose`
 
 Build the images:
@@ -14,19 +19,41 @@ Build the images:
 docker-compose build
 ```
 
-Launch the containers / run the simulation"
+### Running containers with `docker-compose up`
+
+There *should* be a way to do the whole flow in one command here. However, I'm having some issues with getting them sequential, and I'm not convinced
+a bunch of sequential containers is how this command is intended to be used. It seems to pretty much work if you do both `w_init w_run`, but maybe luck.
+
+Initialize the system:
 ```
-docker-compose up w_init w_run
+docker-compose up w_init
 ```
 
-(NB: Something is not quite right about enforcing the order of w_init first, and then w_run. 
+Run the simulations:
+```
+docker-compose up w_run
+```
+
+(NB: Something is not quite right about enforcing the order of w_init first, and then w_run, if you try to combine these two. 
 I could fold them into one container, but I liked having w_run as its own thing you can easily re-run if it chokes and crashes.
 You could of course just manually issue `w_run` to the container, but it seemed more elegant to just be able to rerun the container.)
 
-Start the analysis notebook (completely broken at the moment!)
+Start the analysis notebook
 ```
 docker-compose up analysis
 ```
+This will launch a Jupyter notebook in the container. Pay attention to the output -- you can copy the URL it spits out, and replace port 8888 with 1337
+to connect to it from a browser on your computer.
+
+### Data persistence
+
+When running this, a directory `/odld` is created within the Docker container, and simulations are run within that.
+
+To enable analysis after the run, a Docker volume is created and mounted at `/odld` when launched. 
+A volume provides a persistent store of data that can be mounted in the container, or additionally, mounted on your local filesystem for further analysis.
+
+Between calls to `docker-compose up`, though, the volume will be reused. 
+To wipe out the old volume and use a new one, do `docker-compose down -v`.
 
 ## TODO
 

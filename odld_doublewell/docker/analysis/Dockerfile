@@ -14,4 +14,4 @@ WORKDIR /odld
 
 EXPOSE 8888
 # CMD conda run -n docker_westpa jupyter lab --allow-root --ip=* --port=8888 --no-browser --notebook-dir=/odld/analysis
-CMD ["conda", "run", "-n", "docker_westpa", "--no-capture-output", "jupyter-lab", "analysis.ipynb", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--notebook-dir=/odld", "--allow-root" ]
+CMD ["conda", "run", "-n", "docker_westpa", "--no-capture-output", "jupyter-lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--notebook-dir=/odld", "--allow-root" ]

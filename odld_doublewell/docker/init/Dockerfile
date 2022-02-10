@@ -15,7 +15,7 @@ SHELL ["conda", "run", "-n", "docker_westpa", "/bin/bash", "-c"]
 #   (None for this example, I wrote a custom propagator)
 
 # Make a copy of the odld folder
-COPY odld odld
+COPY odld_system odld
 WORKDIR /odld
 
 CMD [ "./init.sh" ]
