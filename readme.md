@@ -54,12 +54,14 @@ Between calls to `docker-compose up`, though, the volume will be reused.
 To wipe out the old volume and use a new one, do `docker-compose down -v`.
 
 
-# Basic Na/Cl association
+# Basic Na/Cl association 
+
+## Normal command-line operation
 
 As before, start with 
 
     cd basic_nacl
-    docker-compose build
+    docker-compose build w_init w_run
 
 If you've run this before, to ensure you have a fresh run you may need to wipe out the old volumes with
 
@@ -72,6 +74,23 @@ Then initialize the system with
 and launch the simulation with
 
     docker-compose up w_run
+
+## Running in Jupyter
+
+As a simple demonstration, it's also possible to initialize and run the simulation from within a Jupyter notebook.
+
+To do this, again start with
+
+    cd basic_nacl
+    docker-compose build jupyter_run
+
+and then launch the container with
+
+    docker-compose up jupyter_run
+
+As before, look at the output to get the token for the notebook. Navigate to localhost:1336 and enter that token to open the notebook.
+
+From inside the notebook, you should be able to run the first few cells to initialize and run the simulation.
 
 # TODO
 
