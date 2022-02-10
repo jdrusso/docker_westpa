@@ -12,7 +12,12 @@ docker-compose build
 
 Run the simulation
 ```
-docker-compose up
+docker-compose up w_init w_run
+```
+
+Start the analysis
+```
+docker-compose up analysis
 ```
 
 This will run `w_init`, `w_run`, and launch a Jupyter notebook in the simulation directory.
@@ -31,6 +36,8 @@ I can probably move init.sh and run.sh into the respective subfolders, but I wan
 I have a lot of duplicated stuff in my dockerfiles I can just put in one base image
 
 How do I properly make init -> run -> analysis sequential when `docker-compose up` is called? Or should I just avoid that command?
+
+Move the analysis into a separate repo
 
 ## Notes
 
