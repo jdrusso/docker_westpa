@@ -2,25 +2,31 @@
 
 I'm interested in whether I can store an entire simulation as a Docker image, to make a fully self-contained runnable WESTPA simulation.
 
+# `odld_doublewell`
+
 As a very first proof of concept, I want to package just a simple overdamped Langevin dynamics propagator I wrote.
+The potential is just a simple 1D double-well.
 
-# With `docker-compose`
+## With `docker-compose`
 
+Build the images:
 ```
 docker-compose build
 ```
 
-Run the simulation
+Launch the containers / run the simulation"
 ```
 docker-compose up w_init w_run
 ```
 
-Start the analysis
+(NB: Something is not quite right about enforcing the order of w_init first, and then w_run. 
+I could fold them into one container, but I liked having w_run as its own thing you can easily re-run if it chokes and crashes.
+You could of course just manually issue `w_run` to the container, but it seemed more elegant to just be able to rerun the container.)
+
+Start the analysis notebook (completely broken at the moment!)
 ```
 docker-compose up analysis
 ```
-
-This will run `w_init`, `w_run`, and launch a Jupyter notebook in the simulation directory.
 
 ## TODO
 

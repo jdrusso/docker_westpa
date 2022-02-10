@@ -3,7 +3,6 @@ FROM continuumio/miniconda3
 
 # Install WESTPA
 
-# RUN conda install -c conda-forge "westpa==2.0dev1"
 COPY environment.yml .
 RUN conda env create -f environment.yml
 

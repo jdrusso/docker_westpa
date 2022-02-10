@@ -3,7 +3,6 @@ FROM continuumio/miniconda3
 
 # Install WESTPA
 
-# RUN conda install -c conda-forge "westpa==2.0dev1"
 COPY environment.yml .
 RUN conda env create -f environment.yml
 
@@ -17,6 +16,6 @@ SHELL ["conda", "run", "-n", "docker_westpa", "/bin/bash", "-c"]
 
 # Make a copy of the odld folder
 # COPY odld odld
-WORKDIR odld
+WORKDIR /odld
 
 CMD [ "bash", "run.sh" ]
