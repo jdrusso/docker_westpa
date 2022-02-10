@@ -2,7 +2,7 @@
 
 I'm interested in whether I can store an entire simulation as a Docker image, to make a fully self-contained runnable WESTPA simulation.
 
-# `odld_doublewell`
+# Doublewell potential, simple ODLD propagator
 
 As a very first proof of concept, I want to package just a simple overdamped Langevin dynamics propagator I wrote.
 The potential is just a simple 1D double-well.
@@ -12,36 +12,33 @@ First,
 cd odld_doublewell
 ```
 
-## With `docker-compose`
+## Running the simulation
 
 Build the images:
-```
-docker-compose build
-```
 
-### Running containers with `docker-compose up`
+    docker-compose build
+
 
 There *should* be a way to do the whole flow in one command here. However, I'm having some issues with getting them sequential, and I'm not convinced
 a bunch of sequential containers is how this command is intended to be used. It seems to pretty much work if you do both `w_init w_run`, but maybe luck.
 
 Initialize the system:
-```
-docker-compose up w_init
-```
+
+    docker-compose up w_init
 
 Run the simulations:
-```
-docker-compose up w_run
-```
+
+    docker-compose up w_run
+
 
 (NB: Something is not quite right about enforcing the order of w_init first, and then w_run, if you try to combine these two. 
 I could fold them into one container, but I liked having w_run as its own thing you can easily re-run if it chokes and crashes.
 You could of course just manually issue `w_run` to the container, but it seemed more elegant to just be able to rerun the container.)
 
 Start the analysis notebook
-```
-docker-compose up analysis
-```
+
+    docker-compose up analysis
+
 This will launch a Jupyter notebook in the container. Pay attention to the output -- you can copy the URL it spits out, and replace port 8888 with 1337
 to connect to it from a browser on your computer.
 
@@ -55,24 +52,24 @@ A volume provides a persistent store of data that can be mounted in the containe
 Between calls to `docker-compose up`, though, the volume will be reused. 
 To wipe out the old volume and use a new one, do `docker-compose down -v`.
 
-## TODO
+# TODO
 
-What's the appropriate set of containers to run a simulation? Is it a single one? 
+- What's the appropriate set of containers to run a simulation? Is it a single one? 
 
-Or one for w_init, one for w_run, and one for some analysis stuff? 
+- Or one for w_init, one for w_run, and one for some analysis stuff? 
 
-Or maybe a container for w_init/w_run, but you connect it to a volume containing the prepared simulation?
-- I think this could be a container I import, but I need to prepare the simulation in a container.
+- Or maybe a container for w_init/w_run, but you connect it to a volume containing the prepared simulation?
+    - I think this could be a container I import, but I need to prepare the simulation in a container.
 
-I can probably move init.sh and run.sh into the respective subfolders, but I want to keep it as close to a normal WESTPA run structure-wise
+- I can probably move init.sh and run.sh into the respective subfolders, but I want to keep it as close to a normal WESTPA run structure-wise
 
-I have a lot of duplicated stuff in my dockerfiles I can just put in one base image
+- I have a lot of duplicated stuff in my dockerfiles I can just put in one base image
 
-How do I properly make init -> run -> analysis sequential when `docker-compose up` is called? Or should I just avoid that command?
+- How do I properly make init -> run -> analysis sequential when `docker-compose up` is called? Or should I just avoid that command?
 
-Move the analysis into a separate repo
+- Move the analysis into a separate repo
 
-## Notes
+# Notes
 
 - Conda appeared to hang on installing the environment when building the image. 
 
@@ -80,4 +77,6 @@ Move the analysis into a separate repo
 
     - Apparently this can also be caused [by having conda-forge in your channels](https://github.com/ageron/handson-ml2/issues/24#issuecomment-524052579). Trying to remove that.
 
-        - This was the culprit. The solution was removing the `defaults` channel and explicitly providing both `conda-forge` and `conda-forge/label/dev`
+        - This was the culprit, it was some weird conflict resolution issue combined w/ Conda being a little slow in the container. The solution was removing the `defaults` channel and explicitly providing both `conda-forge` and `conda-forge/label/dev`
+
+- I need to think more carefully about how to manage volumes. I'm pretty sure what I'm doing now is not "the right way".
