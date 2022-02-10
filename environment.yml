@@ -1,10 +1,10 @@
 name: docker_westpa
 channels:
   - conda-forge
-  - defaults
+  - conda-forge/label/westpa_dev
 dependencies:
   - numpy
   - matplotlib
   - rich
   - tqdm
-  - conda-forge/label/westpa_dev::westpa==2.0dev1
+  - westpa=2.0dev1
