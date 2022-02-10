@@ -1,0 +1,12 @@
+name: docker_westpa_nacl
+channels:
+  - conda-forge
+  - jeremyleung521
+dependencies:
+  - python=3.9
+  - rich
+  - tqdm
+  - openmm
+  - matplotlib
+  - jupyterlab
+  - westpa=1!1.99dev1
