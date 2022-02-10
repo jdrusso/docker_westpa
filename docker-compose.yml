@@ -1,0 +1,26 @@
+version: '3'
+services:
+  w_init:
+    build: 
+      context: .
+      dockerfile: ./init/Dockerfile
+    volumes:
+      - data:/odld
+  w_run:
+    build: 
+      context: .
+      dockerfile: ./run/Dockerfile
+    volumes:
+      - data:/odld
+    volumes_from:
+      - "w_init"
+  analysis:
+    build: 
+      context: .
+      dockerfile: ./analysis/Dockerfile
+    ports:
+      - "1337:8888"
+    volumes:
+      - data:/odld
+volumes:
+  data:

@@ -7,18 +7,12 @@ FROM continuumio/miniconda3
 COPY environment.yml .
 RUN conda env create -f environment.yml
 
-WORKDIR ~
-
 # Make RUN commands use the new environment:
 SHELL ["conda", "run", "-n", "docker_westpa", "/bin/bash", "-c"]
+RUN conda install -c conda-forge jupyterlab
 
+COPY analysis/analysis.ipynb analysis/analysis.ipynb
+WORKDIR analysis
 
-# Install MD engine 
-#   (None for this example, I wrote a custom propagator)
-
-
-# Make a copy of the odld folder
-COPY odld odld
-WORKDIR odld
-
-ENTRYPOINT [ "bash", "do_simulation.sh" ]
+EXPOSE 8888
+CMD conda run -n docker_westpa jupyter lab --allow-root --ip=* --port=8888 --no-browser --notebook-dir=/odld

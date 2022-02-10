@@ -1,9 +1,6 @@
 #!/bin/bash
 
-# source env.sh
+BSTATES="--bstate initial,8.0"
+TSTATES="--tstate bound,1.2"
 
-rm -f west.h5
-BSTATES="--bstate initial,1.0"
-#TSTATES="--tstate drift,10.01 --tstate bound,1.3"
-#TSTATES="--tstate bound,1.2"
-$WEST_ROOT/bin/w_init $BSTATES $TSTATES "$@"
+conda run -n docker_westpa w_init $BSTATES $TSTATES | tee west_init.log

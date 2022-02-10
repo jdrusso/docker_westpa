@@ -4,35 +4,18 @@ I'm interested in whether I can store an entire simulation as a Docker image, to
 
 As a very first proof of concept, I want to package just a simple overdamped Langevin dynamics propagator I wrote.
 
-# Manually with Docker
-## Building the image
+# With `docker-compose`
 
 ```
-cd docker_westpa
-docker build -f Dockerfile.init     . -t westpa_odld_init
-docker build -f Dockerfile.run      . -t westpa_odld_run
-docker build -f Dockerfile.analysis . -t westpa_odld_analysis
+docker-compose build
 ```
 
-## Running the simulation 
-
-First, create a volume to store persistent data with
+Run the simulation
 ```
-docker volume create data
+docker-compose up
 ```
 
-Then run the simulation attached to the volume with
-```
-docker run -v data:/odld westpa_odld 
-```
-
-(Can you run multiple replicates by running the container on a few different volumes?)
-
-At this point, you can do
-```
-docker run -v data:/odld westpa_odld ls
-```
-and see the `west.h5` generated.
+This will run `w_init`, `w_run`, and launch a Jupyter notebook in the simulation directory.
 
 ## TODO
 
@@ -42,6 +25,12 @@ Or one for w_init, one for w_run, and one for some analysis stuff?
 
 Or maybe a container for w_init/w_run, but you connect it to a volume containing the prepared simulation?
 - I think this could be a container I import, but I need to prepare the simulation in a container.
+
+I can probably move init.sh and run.sh into the respective subfolders, but I want to keep it as close to a normal WESTPA run structure-wise
+
+I have a lot of duplicated stuff in my dockerfiles I can just put in one base image
+
+How do I properly make init -> run -> analysis sequential when `docker-compose up` is called? Or should I just avoid that command?
 
 ## Notes
 

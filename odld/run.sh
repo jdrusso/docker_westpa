@@ -1,6 +1,4 @@
 #!/bin/bash
 
-#source env.sh
-
 rm -f west.log
-$WEST_ROOT/bin/w_run "$@"  &> west.log
+conda run -n docker_westpa w_run | tee west_run.log
