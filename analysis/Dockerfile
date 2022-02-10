@@ -12,7 +12,7 @@ SHELL ["conda", "run", "-n", "docker_westpa", "/bin/bash", "-c"]
 RUN conda install -c conda-forge jupyterlab
 
 COPY analysis/analysis.ipynb analysis/analysis.ipynb
-WORKDIR analysis
+WORKDIR /odld/analysis
 
 EXPOSE 8888
 CMD conda run -n docker_westpa jupyter lab --allow-root --ip=* --port=8888 --no-browser --notebook-dir=/odld
