@@ -16,7 +16,7 @@ SHELL ["conda", "run", "--no-capture-output", "-n", "docker_westpa_nacl", "/bin/
 # This is necessary for some compatibility patches between start-states and the HDF5 framework (I think)
 # RUN conda install -c jeremyleung521 -c conda-forge westpa='1!1.99dev1' jupyterlab
 
-COPY nacl_system cdnacl
+COPY nacl_system nacl
 WORKDIR /nacl
 
 EXPOSE 8888
