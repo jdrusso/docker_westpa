@@ -24,6 +24,7 @@ services:
     build: 
       context: .
       dockerfile: ./docker/jupyter_run/Dockerfile
+    image: jdrusso/westpa:westpa_nacl_jupyter
     ports:
       - "1336:8888"
     volumes:
