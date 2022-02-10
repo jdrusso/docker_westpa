@@ -61,7 +61,17 @@ As before, start with
     cd basic_nacl
     docker-compose build
 
+If you've run this before, to ensure you have a fresh run you may need to wipe out the old volumes with
 
+    docker-compose down -v
+
+Then initialize the system with
+
+    docker-compose up w_init
+
+and launch the simulation with
+
+    docker-compose up w_run
 
 # TODO
 
