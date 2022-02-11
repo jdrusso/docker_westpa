@@ -53,11 +53,13 @@ Having a proof-of-concept for non-Python MD engines like Amber/Gromacs would be 
 
 ## Using prebuilt images from Dockerhub
 
-You should be able to pull and run this image without doing anything locally, as the true test of this. To do that, run
+You should be able to pull and run this image without doing anything locally, as the true test of this. To do that, simply run
 
     docker run -p 8888:8888 jdrusso/westpa:westpa_nacl_jupyter
 
-and click on one of the links in the output.
+and click on one of the links in the output. 
+
+Open the Jupyter notebook, and execute the first few cells to run a simulation of NaCl association.
 
 ## Running a WESTPA simulation from the command-line
 
